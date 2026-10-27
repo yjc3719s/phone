@@ -48,7 +48,7 @@ svg.i{width:46%;height:46%;fill:#fff}
 .dl{background:#fde7e7;color:#b3261e}
 .empty{text-align:center;color:#5f6368;font-size:22px;padding:30px 10px}
 /* call screens */
-.scr{position:fixed;inset:0;z-index:20;display:none;flex-direction:column;align-items:center;color:#fff;padding:calc(env(safe-area-inset-top,0) + 2vh) 14px calc(env(safe-area-inset-bottom,0) + 2vh);background:#202124}
+.scr{position:fixed;top:0;left:0;width:100%;height:100%;min-height:100dvh;z-index:20;display:none;flex-direction:column;align-items:center;color:#fff;padding:calc(env(safe-area-inset-top,0) + 2vh) 14px calc(env(safe-area-inset-bottom,0) + 2vh);background:#202124}
 .scr.on{display:flex}
 #scrE{background:linear-gradient(180deg,#1b3fa8 0%,#1c47b8 55%,#3472c2 100%)}
 .av{width:clamp(80px,13vh,130px);height:clamp(80px,13vh,130px);border-radius:50%;background:#4e84ee;flex:none;display:flex;align-items:flex-end;justify-content:center;overflow:hidden}
@@ -59,11 +59,12 @@ svg.i{width:46%;height:46%;fill:#fff}
 .end{width:clamp(76px,11vh,100px);height:clamp(76px,11vh,100px);border-radius:50%;background:#d93025;display:flex;align-items:center;justify-content:center;flex:none}
 .end:active{background:#a52019}
 .end svg{transform:rotate(135deg)}
-.msg{font-weight:900;text-align:center;line-height:1.35;font-size:min(8.4vw,4.4vh);margin:1.4vh 0;text-shadow:0 2px 6px rgba(0,0,0,.35)}
-.msg .g{display:block;height:.8em}
+.msg{font-weight:900;text-align:center;line-height:1.4;font-size:min(6.1vw,3.6vh);white-space:nowrap;margin:.8vh 0;text-shadow:0 2px 6px rgba(0,0,0,.35)}
+.msg .g{display:block;height:.5em}
 .msg b{color:#f6ee3b}
-.photo{flex:1;min-height:0;width:100%;display:flex;align-items:center;justify-content:center;margin:1vh 0}
-.photo img{max-width:100%;max-height:100%;object-fit:contain;border-radius:8px;background:#fff}
+.photo{flex:1;min-height:0;width:100%;display:flex;align-items:center;justify-content:center;margin:.8vh 0}
+#scrE{padding-left:6px;padding-right:6px}#scrE .av{width:clamp(60px,8.5vh,96px);height:clamp(60px,8.5vh,96px)}#scrE .who{font-size:clamp(22px,3.2vh,32px);margin:.6vh 0}#scrE .end{width:clamp(64px,9vh,88px);height:clamp(64px,9vh,88px)}
+.photo img{width:100%;height:100%;object-fit:contain;border-radius:8px}
 /* modal */
 .md{position:fixed;inset:0;z-index:50;background:rgba(0,0,0,.5);display:none;align-items:center;justify-content:center;padding:20px}
 .md.on{display:flex}
@@ -188,7 +189,7 @@ $('callBtn').onclick=function(){
 var timers=[],active=false;
 function T(f,ms){var id=setTimeout(f,ms);timers.push(id);return id}
 function clearAll(){timers.forEach(clearTimeout);timers=[];stopRing();try{speechSynthesis.cancel()}catch(e){}}
-function show(id){['scrC','scrE'].forEach(function(s){$(s).classList.toggle('on',s===id)})}
+function show(id){document.documentElement.style.background=document.body.style.background=id==='scrE'?'#4472c4':'';['scrC','scrE'].forEach(function(s){$(s).classList.toggle('on',s===id)})}
 function startCall(label){
   clearAll();active=true;
   $('cWho').textContent=label;$('cSt').textContent='発信中…';show('scrC');
